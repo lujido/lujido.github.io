@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="shamy.graph.css" type="text/css" />
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="shamy-legend">
+        <b>Edge relationships color code:</b>
+        <span style="color:#FFFFFF;background-color:#000000;font-weight:bold;">A</span>ccountable,
+        <span style="color:#FFFFFF;background-color:#cc0000;font-weight:bold;">R</span>esponsible,
+        <span style="color:#FFFFFF;background-color:#38761d;font-weight:bold;">C</span>onsulted,
+        <span style="color:#FFFFFF;background-color:#f1c232;font-weight:bold;">I</span>nformed,
+        <span style="color:#FFFFFF;background-color:#38761d;font-weight:bold;">B</span>uddy/pal,
+        <span style="color:#FFFFFF;background-color:#0000ff;font-weight:bold;">D</span>ependency
+    </div>
+    <div id="shamy-graph"></div>
+    <!-- JAVASCRIPTS -->
+    <script type="text/javascript" src="shamy.gss.js"></script>
+    <script type="text/javascript">
+        /** GSS data **/
+        var gssData = null;
+        function getData(json) { gssData = json.feed.entry; }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            /** GSS RACI data rage coordinates **/
+            var raciDataLoc = {start:{col:4,row:4},end:{col:19,row: 175}};
+
+            /** Get shamyData **/
+            var shamyData = shamy.gss.getProcessedData(gssData,raciDataLoc);
+            //console.log(JSON.stringify(shamyData));
+
+            /** Display shamyData **/
+            var size = {"diameter":1500, "labelRadius":400};
+            shamy.graph.display(shamyData, "#shamy-graph", size);
+        });
+    </script>
+<!--     <script src="https://spreadsheets.google.com/feeds/cells/1q0by2MmqwtmttEbbaZ_u-q5dCKrZDQnch2uiV_gA5BI/1/public/values?alt=json-in-script&callback=getData"></script> -->
+    <script src="https://spreadsheets.google.com/feeds/cells/1emkyfp9BhFIo9dgINC9CAdhPeo-MnV0-Fl-VAu820WY/1/public/values?alt=json-in-script&callback=getData"></script>
+    <script type="text/javascript" src="d3.v3.min.js"></script>
+    <script type="text/javascript" src="shamy.graph.js"></script>
+
+</body>
+</html>
